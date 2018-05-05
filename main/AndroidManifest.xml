@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.yun.phonemanager">
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.WRITE_CALL_LOG" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.WRITE_SMS" />
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="android.permission.GET_PACKAGE_SIZE" />
+    <uses-permission android:name="android.permission.CLEAR_APP_CACHE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".activity.SplashActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.yun.home" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.Home2Activity" />
+        <activity android:name=".activity.AntivirusActivity" />
+        <activity
+            android:name=".activity.AddressPositionActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity android:name=".activity.AddressQueryActivity" />
+        <activity android:name=".activity.APPManageActivity" />
+        <activity android:name=".activity.BaseStepActivity" />
+        <activity android:name=".activity.BaseTouch" />
+        <activity android:name=".activity.BaseTouch2" />
+        <activity android:name=".activity.CacheClearActivity" />
+        <activity android:name=".activity.CacheFinishActivity" />
+        <activity android:name=".activity.CallSafeActivity" />
+        <activity android:name=".activity.CommonNumberQueryActivity" />
+        <activity android:name=".activity.ContactActivity" />
+        <activity android:name=".activity.LostFindActivity" />
+        <activity android:name=".activity.ProcessManageActivity" />
+        <activity
+            android:name=".activity.ProgramDogActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance" />
+        <activity android:name=".activity.ProgramLockActivity" />
+        <activity android:name=".activity.SettingActivity" />
+        <activity android:name=".activity.Step1Activity" />
+        <activity android:name=".activity.Step2Activity" />
+        <activity android:name=".activity.Step3Activity" />
+        <activity android:name=".activity.Step4Activity" />
+        <activity android:name=".activity.ToolActivity" />
+        <activity
+            android:name="com.yun.touch.TouchActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name="com.yun.touch.TouchCleanActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name="com.yun.scanner.Scan"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity
+            android:name="com.yun.scanner.CaptureActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
+        <!-- activity end -->
+
+
+        <!-- receiver start -->
+        <!-- 安装包安装和卸载监听 -->
+        <receiver android:name=".receiver.packageinstall">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+        <!-- 手机启动监听 -->
+        <receiver android:name=".receiver.BootCheck">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <!-- 命令短信拦截 -->
+        <receiver android:name=".receiver.SMSAbort">
+            <intent-filter android:priority="2147483647">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 设备管理器 -->
+        <receiver
+            android:name=".receiver.AdminReceiver"
+            android:description="@string/sample_device_admin_description"
+            android:label="@string/sample_device_admin"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/device_admin_sample" />
+
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+            </intent-filter>
+        </receiver>
+        <!-- 桌面小部件的配置 -->
+        <receiver android:name=".receiver.AppWidgetClean">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.intent.action.TIME_SET" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/example_appwidget_info" />
+        </receiver>
+        <!-- touch开机启动 -->
+        <receiver android:name="com.yun.touch.BootCheck">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <!-- receiver end -->
+
+
+        <!-- service start -->
+        <!-- 获取位置的服务 -->
+        <service android:name=".sevice.LocationService" />
+        <!-- 来电去电归属地显示服务 -->
+        <service android:name=".sevice.AddressDisplayService" />
+        <!-- 锁屏助手服务 -->
+        <service android:name=".sevice.LockService" />
+        <!-- 黑名单拦截服务 -->
+        <service android:name=".sevice.BlackAbortService" />
+        <!-- 锁屏后清理进程 -->
+        <service android:name=".sevice.KillProcessService" />
+        <!-- widget更新服务 -->
+        <service android:name=".sevice.WidgetService" />
+        <!-- 看门狗服务 -->
+        <service android:name=".sevice.ProgramDogService" />
+        <!-- touch主服务 -->
+        <service android:name="com.yun.touch.RocketService" />
+        <!-- service end -->
+
+        <activity android:name=".activity.News"></activity>
+    </application>
+
+</manifest>
